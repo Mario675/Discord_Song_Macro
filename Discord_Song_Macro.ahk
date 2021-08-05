@@ -2,103 +2,58 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
-if ahk_exe Discord.exe !Exist
-{
-    TrayTip, Song_macro, Please Open Discord to continue, 3,
-    exitapp
-}
-
-
 ControlFocus, , ahk_exe discord.exe,
 
-;===================================
-;KeyFuncLoops
-
-;DurationBetween allows you set the speed of the buttons that you press in your play keys.
-
-EnterDiscord()
+arrow_loop(arrow, amount, delay)
 {
-    send !?
-    sleep 100
-    return
-}
-
-
-
-
-
-leftup(Looptimes)
-{
-    global DurationBetween
-    loop Looptimes
+    switch arrow
     {
-        send left up
-    }
+        case "up":
+            loop % amount
+            {
+                send {up}
+                sleep delay
+            }
 
-    return
-}
+        case "down":
+            loop % amount
+            {
+                send {down}
+                sleep delay
+            }
 
-righttopdown(Looptimes)
-{
-    global DurationBetween
-    loop Looptimes
-    {
-        sleep DurationBetween
-        send right
-        sleep DurationBetween
-        send up
-        sleep DurationBetween
-        send down
-    }
+        case "left":
+            loop % amount
+            {
+                send {left}
+                sleep delay
+            }
 
-    return
-}
-
-leftdown(Looptimes)
-{
-    global DurationBetween
-    loop Looptimes
-    {
-        sleep DurationBetween
-        send left
+        case "right":
+            loop % amount
+            {
+                send {right}
+                sleep delay
+            }
+    
     }
 }
 
+^J::
 
+    wait_var := 110
 
+    loop 3
+    {
+        arrow_loop("right", 2, wait_var)
+        arrow_loop("up", 1, wait_var)
+        arrow_loop("down", 2, wait_var)
+        arrow_loop("left", 1, wait_var)
 
+        wait_var -= 5
+    }
 
+    arrow_loop("right", 1, wait_var)
 
-;===================================------
-
-
-;===================================
-;HOTKEYS
-
-DurationBetween = 1000 ;Make sure variable is defined before use. 
-
-!1::
-
-
-EnterDiscord()
-DurationBetween = 1000
-leftup(2)
-leftdown(1)
-leftup(1)
-
+    
 return
-
-!2::
-
-return
-!3::
-
-return
-!4::
-
-return
-!x::
-Exitapp
-
-
-;etc

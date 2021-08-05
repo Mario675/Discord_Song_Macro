@@ -39,7 +39,7 @@ arrow_loop(arrow, amount, delay)
     }
 }
 
-^J::
+^Numpad1::
 
     wait_var := 110
 

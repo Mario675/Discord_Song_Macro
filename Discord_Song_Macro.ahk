@@ -39,21 +39,66 @@ arrow_loop(arrow, amount, delay)
     }
 }
 
-^Numpad1::
-
-    wait_var := 110
-
-    loop 3
+class preset
+{
+    one()
     {
-        arrow_loop("right", 2, wait_var)
-        arrow_loop("up", 1, wait_var)
-        arrow_loop("down", 2, wait_var)
-        arrow_loop("left", 1, wait_var)
+        wait_var := 110
 
-        wait_var -= 5
+        loop 3
+        {
+            arrow_loop("right", 2, wait_var)
+            arrow_loop("up", 1, wait_var)
+            arrow_loop("down", 2, wait_var)
+            arrow_loop("left", 1, wait_var)
+
+            wait_var -= 5
+        }
+
+        arrow_loop("right", 1, wait_var)
     }
 
-    arrow_loop("right", 1, wait_var)
+    two()
+    {
+        wait_var := 110
 
+        loop 3
+        {
+            arrow_loop("down", 2, wait_var)
+            arrow_loop("up", 1, wait_var)
+            arrow_loop("right", 2, wait_var)
+            arrow_loop("left", 1, wait_var)
+
+            ; wait_var -= 5
+        }
+        arrow_loop("down", 2, wait_var)
+        arrow_loop("up", 1, wait_var)
+        arrow_loop("right", 1, wait_var)
+    }
+
+    three()
+    {
+        wait_var := 110
+
+        loop 3
+        {
+            arrow_loop("left", 1, wait_var)
+            arrow_loop("up", 1, wait_var)
+            arrow_loop("down", 1, wait_var)
+            arrow_loop("up", 1, wait_var)
+
+            wait_var -= 5
+        }
+    }
+}
+
+^Numpad1::
+    preset.two()
+    sleep 500
+    preset.one()
     
+return
+
+^Numpad2::
+    preset.three()
 return

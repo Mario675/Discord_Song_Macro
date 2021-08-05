@@ -2,6 +2,11 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
+!Esc::
+{
+    ExitApp
+}
+
 ControlFocus, , ahk_exe discord.exe,
 
 arrow_loop(arrow, amount, delay)
@@ -96,7 +101,7 @@ class preset
     preset.two()
     sleep 500
     preset.one()
-    
+
 return
 
 ^Numpad2::
